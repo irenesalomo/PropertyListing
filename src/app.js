@@ -1,17 +1,27 @@
-function parseInput(){
-    $.getJSON( "src/data/property.json", function( data ) {
-      var items = [];
-        console.log(data.results);
-      $.each( data.results, function( key, val ) {
-        items.push( "<li id='" + key + "'>" + val + "</li>" );
-      });
+(function(){
+    var request = new XMLHttpRequest();
+    requestInput();
 
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "body" );
-    });
-}
+    function requestInput(){
+        var requestURL = "src/data/property.json";
+        request.onreadystatechange = processRequest;
 
-parseInput();
-console.log("here");
+        request.open('GET', requestURL);
+        //set the request to convert the JSON response directly into a JavaScript object
+        request.responseType = 'json';
+        request.send();
+    };
+
+    // Call this function when request is done & successful
+    function processRequest(){
+        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+            var respond = request.response;
+            console.log(respond);
+        }
+        else
+            console.log("failed");
+    }
+    
+})();
+
+
