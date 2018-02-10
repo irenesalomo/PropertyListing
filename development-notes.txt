@@ -8,10 +8,24 @@ Requirements:
 5. If the property card on Results column has been added on Saved property list, show "Saved" icon/text somewhere on the property card and do nothing when user mouse hover it. 
 6. When mouse hover property card in Saved Properties column:
     Show the "Remove Property" button
-        When user click "Remove Property" button, the property will be removed from the Saved Properties list. ---> Not sure, if it's supposed to be removed from the "Results" list as well? 
+        When user click "Remove Property" button, the property will be removed from the Saved Properties list. ---> Not sure, if it's supposed to be removed from the "Results" list as well? No, it will still be on Results list (as both lists are independent)
+
+===============================================================================     
+
+Data structure strategy:
+- Create 1 Property Map to store all properties
+- Create 1 Saved Property Set to store property IDs of saved properties. I'll use the IDs to get the property object from Property Map.
+
+Initial state:
+- The Saved Property Set already has 1 existing ID = 4
+- The Result column only shows Property ID 1, 2, & 3 instead of all properties under Property Map
+
+Motivation behind this strategy: to minimise property object duplications that require updates on multiple places when there are data changes. 
+
+================================================================================
 
 TODO:
 1. Implement JS Modular pattern
 2. Implement unit testing
-3. Consider for make it persistent
-4. Implement handlebar pre-compilation templating to separate UI from JS 
+3. Consider to make the saved property list to be persistent
+4. Implement handlebar pre-compilation to improve performance
