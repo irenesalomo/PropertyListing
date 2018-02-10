@@ -10,6 +10,38 @@
     </head>
     
     <body>
+        
+        <header>
+            <div class="container">
+                <h1>Property Results</h1>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="column" id="column__results">
+                <h3 class="column__header">Results</h3>
+            </div>    
+            <div class="column" id="column__saved">
+                <h3 class="column__header">Saved Properties</h3>
+            </div>
+        </div>
+        
+        <footer></footer>
+        
+        <!--Template for property card-->
+        <script id="propertyCard-template" type="text/x-handlebars-template">
+            {{#results}}                
+                <article class="propertyCard">
+                    <div class="propertyCard__header" style="background-color:{{agency.brandingColors.primary}}"><img src="{{agency.logo}}"/></div>
+                    <div class="propertyCard__image"><img src="{{mainImage}}"/></div>
+                    <div class="propertyCard__price">{{price}}</div>
+                </article>
+            {{/results}}
+        </script>
+        
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
         <script src="src/app.js"></script>
     </body>
 </html>

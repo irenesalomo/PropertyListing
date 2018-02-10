@@ -17,11 +17,14 @@
         if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
             var respond = request.response;
             console.log(respond);
+            renderTemplate(respond);
         }
         else
             console.log("failed");
     }
     
+    function renderTemplate(respond){
+        var propertyCardTemplate = Handlebars.compile($('#propertyCard-template').html());
+        $('#column__results').html(propertyCardTemplate(respond));
+    }
 })();
-
-
