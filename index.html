@@ -31,7 +31,7 @@
         <!--Template for property card-->
         <script id="propertyCard-template" type="text/x-handlebars-template">
             {{#properties}} 
-                <article class="propertyCard">
+                <article class="propertyCard{{#if isSaved}} propertyCard--mouseHover-showRemoveButton{{else}} propertyCard--mouseHover-showAddButton" {{/if}} data-id="{{id}}">
                     <div class="propertyCard__header" style="background-color:{{agency.brandingColors.primary}}"><img src="{{agency.logo}}"/></div>
                     <div class="propertyCard__image"><img src="{{mainImage}}"/></div>
                     <div class="propertyCard__price">{{price}}</div>

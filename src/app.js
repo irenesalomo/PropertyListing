@@ -19,9 +19,9 @@
     function processRequest(){
         if(lib.request.readyState === XMLHttpRequest.DONE && lib.request.status === 200) {
             var respond = lib.request.response;
-            propertyLibrarySetting(respond);
+            propertyLibrarySetting(respond.results);
             renderTemplate('column__results',lib.propertyLibrary);
-            savedPropertySetting(respond);
+            savedPropertySetting(respond.saved);
             renderTemplate('column__saved',getSavedProperty());
             console.log(lib);
         }
@@ -39,31 +39,27 @@
             properties : []
         };
         
-        lib.propertyLibrary.properties = properties.results;
+        for(property of properties){
+            property.isSaved = false;
+        }
+        
+        lib.propertyLibrary.properties = properties;
     }
     
     function savedPropertySetting(properties){
-        lib.savedProperty = {
-            properties : []
-        }
-        
-        for(property of properties.saved){
+        for(property of properties){
+            property.isSaved = true;
+            
+//          TODO: Need to handle --> what if the property already exists on propertyLibrary?
             lib.propertyLibrary.properties.push(property);
-            lib.savedProperty.properties.push(property.id);
         }
     }
     
     function getSavedProperty(){
-        let tempSavedProperty = {
-            properties: []
-        };
-        
-        for (let propertyID of lib.savedProperty.properties){
-            var found = lib.propertyLibrary.properties.find(function(property){
-                return property.id === propertyID;
-            });
-            tempSavedProperty.properties.push(found);
-        }
+        let tempSavedProperty = {};
+        tempSavedProperty.properties = lib.propertyLibrary.properties.filter(function(property) {
+            return property.isSaved === true;    
+        });
         
         return tempSavedProperty;
     }

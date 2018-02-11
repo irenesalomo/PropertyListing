@@ -13,8 +13,8 @@ Requirements:
 ===============================================================================     
 
 Data structure strategy:
-- Create 1 Property Map to store all properties
-- Create 1 Saved Property Set to store property IDs of saved properties. I'll use the IDs to get the property object from Property Map.
+- Create 1 propertyLibrary object to store all properties
+- Add 'isSaved' property to mark if the properties already saved by user
 
 Initial state:
 - The Saved Property Set already has 1 existing ID = 4
@@ -29,3 +29,4 @@ TODO:
 2. Implement unit testing
 3. Consider to make the saved property list to be persistent
 4. Implement handlebar pre-compilation to improve performance
+5. Optimise getSavedProperty()
