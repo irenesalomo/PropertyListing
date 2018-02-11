@@ -19,15 +19,53 @@
     function processRequest(){
         if(lib.request.readyState === XMLHttpRequest.DONE && lib.request.status === 200) {
             var respond = lib.request.response;
-            console.log(respond);
-            renderTemplate(respond);
+            propertyLibrarySetting(respond);
+            renderTemplate('column__results',lib.propertyLibrary);
+            savedPropertySetting(respond);
+            renderTemplate('column__saved',getSavedProperty());
+            console.log(lib);
         }
         else
             console.log("failed");
     }
     
-    function renderTemplate(respond){
+    function renderTemplate(targetElementId, data){
         var propertyCardTemplate = Handlebars.compile($('#propertyCard-template').html());
-        $('#column__results').html(propertyCardTemplate(respond));
+        $('#'+targetElementId).append(propertyCardTemplate(data));
     }
+    
+    function propertyLibrarySetting(properties){
+        lib.propertyLibrary = {
+            properties : []
+        };
+        
+        lib.propertyLibrary.properties = properties.results;
+    }
+    
+    function savedPropertySetting(properties){
+        lib.savedProperty = {
+            properties : []
+        }
+        
+        for(property of properties.saved){
+            lib.propertyLibrary.properties.push(property);
+            lib.savedProperty.properties.push(property.id);
+        }
+    }
+    
+    function getSavedProperty(){
+        let tempSavedProperty = {
+            properties: []
+        };
+        
+        for (let propertyID of lib.savedProperty.properties){
+            var found = lib.propertyLibrary.properties.find(function(property){
+                return property.id === propertyID;
+            });
+            tempSavedProperty.properties.push(found);
+        }
+        
+        return tempSavedProperty;
+    }
+    
 })();
