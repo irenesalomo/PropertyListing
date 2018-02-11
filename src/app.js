@@ -1,21 +1,24 @@
 (function(){
-    var request = new XMLHttpRequest();
+    // Create the local library object, to be exported or referenced globally later
+    var lib = {};
     requestInput();
 
     function requestInput(){
-        var requestURL = "src/data/property.json";
-        request.onreadystatechange = processRequest;
+        lib.request = new XMLHttpRequest();
 
-        request.open('GET', requestURL);
+        var requestURL = "src/data/property.json";
+        lib.request.onreadystatechange = processRequest;
+
+        lib.request.open('GET', requestURL);
         //set the request to convert the JSON response directly into a JavaScript object
-        request.responseType = 'json';
-        request.send();
+        lib.request.responseType = 'json';
+        lib.request.send();
     };
 
     // Call this function when request is done & successful
     function processRequest(){
-        if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-            var respond = request.response;
+        if(lib.request.readyState === XMLHttpRequest.DONE && lib.request.status === 200) {
+            var respond = lib.request.response;
             console.log(respond);
             renderTemplate(respond);
         }
