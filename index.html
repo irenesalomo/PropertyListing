@@ -30,13 +30,13 @@
         
         <!--Template for property card-->
         <script id="propertyCard-template" type="text/x-handlebars-template">
-            {{#results}}                
+            {{#properties}} 
                 <article class="propertyCard">
                     <div class="propertyCard__header" style="background-color:{{agency.brandingColors.primary}}"><img src="{{agency.logo}}"/></div>
                     <div class="propertyCard__image"><img src="{{mainImage}}"/></div>
                     <div class="propertyCard__price">{{price}}</div>
                 </article>
-            {{/results}}
+            {{/properties}}
         </script>
         
         <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
