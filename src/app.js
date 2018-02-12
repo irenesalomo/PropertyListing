@@ -1,4 +1,5 @@
 (function(root, undefined){
+	'use strict';
     // Create the local library object, to be exported or referenced globally later
     var lib = {};
     requestInput();
@@ -39,7 +40,7 @@
             properties : []
         };
         
-        for(property of properties){
+        for(let property of properties){
             property.isSaved = false;
         }
         
@@ -47,7 +48,7 @@
     }
     
     function savedPropertySetting(properties){
-        for(property of properties){
+        for(let property of properties){
             property.isSaved = true;
             
 //          TODO: Need to handle --> what if the property already exists on propertyLibrary?
@@ -63,6 +64,17 @@
         
         return tempSavedProperty;
     }
+    
+    function togglePropertySaveStatus(propertyID){
+//        debugger;
+        let propertyIndex = lib.propertyLibrary.properties.findIndex(function(property){
+            return property.id == propertyID;
+        })
+        const done = lib.propertyLibrary.properties[propertyIndex].isSaved = !lib.propertyLibrary.properties[propertyIndex].isSaved;
+        return done;
+    }
+    
+    lib.togglePropertySaveStatus = togglePropertySaveStatus;
     
     root['propertyListing'] = lib;
     
