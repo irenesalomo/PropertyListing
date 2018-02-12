@@ -1,0 +1,22 @@
+.clearfix {
+  &:before, &:after {
+    display: table;
+    content: " ";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.flexbox-container {
+    width: 1020px;
+    display: flex;
+    margin: auto;
+}
+
+.column{
+    order: 1;
+	flex: 1;
+    flex-basis: auto;
+    width: 50%;
+}
