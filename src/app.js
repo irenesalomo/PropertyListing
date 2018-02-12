@@ -1,4 +1,4 @@
-(function(){
+(function(root, undefined){
     // Create the local library object, to be exported or referenced globally later
     var lib = {};
     requestInput();
@@ -64,4 +64,6 @@
         return tempSavedProperty;
     }
     
-})();
+    root['propertyListing'] = lib;
+    
+})(this);
