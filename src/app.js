@@ -43,18 +43,16 @@
         request.send();
     })();
     
-    
-    
-    // To toggle property's isSaved status 
-    lib.togglePropertySaveStatus = function togglePropertySaveStatus(propertyID){
-        //debugger;
-        let propertyIndex = lib.propertyLibrary.properties.findIndex(function(property){
+    // To toggle property isSaved status 
+    lib.togglePropertySaveStatus = function togglePropertySaveStatus(propertyArray = lib.propertyLibrary.properties, propertyID){
+        // Find the array index of property given the property ID
+        let propertyIndex = propertyArray.findIndex(function(property){
             return property.id == propertyID;
         })
-        const done = lib.propertyLibrary.properties[propertyIndex].isSaved = !lib.propertyLibrary.properties[propertyIndex].isSaved;
+        const done = propertyArray[propertyIndex].isSaved = !propertyArray[propertyIndex].isSaved;
         return done;
-    }
-
+    };
+    
 	/* --- Internal Helper Methods --- */
     //To render Handlebar template, given target HTML element & data 
     
@@ -64,8 +62,6 @@
         }
         $('#'+targetElementId).append(lib.propertyCardTemplate(propertyCards));
     }
-    
-
     
     root['propertyListing'] = lib;
     
