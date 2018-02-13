@@ -2,79 +2,70 @@
 	'use strict';
     // Create the local library object, to be exported or referenced globally later
     var lib = {};
-    requestInput();
-
-    function requestInput(){
-        lib.request = new XMLHttpRequest();
-
-        var requestURL = "src/data/property.json";
-        lib.request.onreadystatechange = processRequest;
-
-        lib.request.open('GET', requestURL);
-        //set the request to convert the JSON response directly into a JavaScript object
-        lib.request.responseType = 'json';
-        lib.request.send();
-    };
-
-    // Call this function when request is done & successful
-    function processRequest(){
-        if(lib.request.readyState === XMLHttpRequest.DONE && lib.request.status === 200) {
-            var respond = lib.request.response;
-            propertyLibrarySetting(respond.results);
-            renderTemplate('column__results',lib.propertyLibrary);
-            savedPropertySetting(respond.saved);
-            renderTemplate('column__saved',getSavedProperty());
-            console.log(lib);
-        }
-        else
-            console.log("failed");
-    }
     
-    function renderTemplate(targetElementId, data){
-        var propertyCardTemplate = Handlebars.compile($('#propertyCard-template').html());
-        $('#'+targetElementId).append(propertyCardTemplate(data));
-    }
-    
-    function propertyLibrarySetting(properties){
-        lib.propertyLibrary = {
-            properties : []
+    lib.init = (function init(requestURL = "src/data/property.json"){
+        var request = new XMLHttpRequest();
+        
+        request.onreadystatechange = function(){
+            // Execute this function when request is done & successful
+            if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                
+                //Compile Handlebar template
+                lib.propertyCardTemplate = Handlebars.compile($('#propertyCard-template').html());
+                
+                // Add isSaved status on both result & saved objects, then show & combine them
+                var resultProperties = request.response.results;
+                var savedProperties = request.response.saved;
+                
+                for(let property of resultProperties){
+                    property.isSaved = false;
+                }
+                renderTemplate('column__results',resultProperties);
+
+                for(let property of savedProperties){
+                    property.isSaved = true;
+                }
+                renderTemplate('column__saved',savedProperties);
+                
+                lib.propertyLibrary = {
+                    properties : resultProperties.concat(savedProperties)
+                };
+
+                console.log(lib);
+            }
+            else
+                console.log("failed");
         };
-        
-        for(let property of properties){
-            property.isSaved = false;
-        }
-        
-        lib.propertyLibrary.properties = properties;
-    }
+
+        request.open('GET', requestURL);
+        //set the request to convert the JSON response directly into a JavaScript object
+        request.responseType = 'json';
+        request.send();
+    })();
     
-    function savedPropertySetting(properties){
-        for(let property of properties){
-            property.isSaved = true;
-            
-//          TODO: Need to handle --> what if the property already exists on propertyLibrary?
-            lib.propertyLibrary.properties.push(property);
-        }
-    }
     
-    function getSavedProperty(){
-        let tempSavedProperty = {};
-        tempSavedProperty.properties = lib.propertyLibrary.properties.filter(function(property) {
-            return property.isSaved === true;    
-        });
-        
-        return tempSavedProperty;
-    }
     
-    function togglePropertySaveStatus(propertyID){
-//        debugger;
+    // To toggle property's isSaved status 
+    lib.togglePropertySaveStatus = function togglePropertySaveStatus(propertyID){
+        //debugger;
         let propertyIndex = lib.propertyLibrary.properties.findIndex(function(property){
             return property.id == propertyID;
         })
         const done = lib.propertyLibrary.properties[propertyIndex].isSaved = !lib.propertyLibrary.properties[propertyIndex].isSaved;
         return done;
     }
+
+	/* --- Internal Helper Methods --- */
+    //To render Handlebar template, given target HTML element & data 
     
-    lib.togglePropertySaveStatus = togglePropertySaveStatus;
+    function renderTemplate(targetElementId, data){
+        var propertyCards = {
+            properties : data
+        }
+        $('#'+targetElementId).append(lib.propertyCardTemplate(propertyCards));
+    }
+    
+
     
     root['propertyListing'] = lib;
     

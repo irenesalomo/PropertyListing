@@ -25,8 +25,20 @@ Motivation behind this strategy: to minimise property object duplications that r
 ================================================================================
 
 TODO:
-1. Implement JS Modular pattern
-2. Implement unit testing
-3. Consider to make the saved property list to be persistent
-4. Implement handlebar pre-compilation to improve performance
-5. Optimise getSavedProperty()
+[ ] Implement JS Modular pattern
+[ ] Implement unit testing
+[ ] Consider to make the saved property list to be persistent
+[ ] Implement handlebar pre-compilation to improve performance
+
+================================================================================
+
+Module structure:
+1. Module init() : for all input data request, data initialisation, compile Handlebar template
+2. Module togglePropertySaveStatus
+3. Module getSavedProperty
+
+Internal Helper Method:
+1. bindEvent() : for save & remove buttons
+2. render() : To render Handlebar template, given target HTML element & data 
+
+================================================================================
