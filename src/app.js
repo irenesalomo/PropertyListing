@@ -26,9 +26,7 @@
                     properties : resultProperties.concat(savedProperties)
                 };
                 
-                lib.savedPropertyID = {
-                    propertiesID : savedPropertiesID
-                }
+                lib.savedPropertyID = savedPropertiesID;
                 console.log(lib);
             }
         }
@@ -37,6 +35,12 @@
         request.responseType = 'json';
         request.send();
     })();
+    
+    // Remove property ID from savedPropertyID array
+    lib.removeSavedProperty = function removeSavedProperty(savedProperty = lib.savedPropertyID, propertyID) {
+        const index = savedProperty.indexOf(propertyID);
+        savedProperty.splice(index, 1);
+    };
     
 /* --- Internal Helper Methods --- */
     // To render Handlebars template given HTML target element and the property data

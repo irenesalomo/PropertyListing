@@ -1,10 +1,7 @@
 describe('Testing the functionality of Property Listing, this is the checklist', function(){
-  it('should mark property as saved', function(){
-    let property = {
-        "id": "1"
-    }
-    const saved = propertyListing.saveProperty(property);
-
-    expect(propertyListing.getSavedProperty().length).toBe(1);
+  it('should remove saved property ID', function(){
+    var savedPropertyID = ["1"];
+    propertyListing.removeSavedProperty(savedPropertyID, "1");  
+    expect(savedPropertyID.length).toBe(0);
   })
 })

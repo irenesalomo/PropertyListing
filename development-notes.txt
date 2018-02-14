@@ -14,7 +14,7 @@ Requirements:
 
 Data structure strategy:
 - Create 1 propertyLibrary object to store all properties (both results and saved properties)
-- Create 1 savedPropertyID object to store property ID of savedProperty, then use this ID to retrieve the property data from propertyLibrary.
+- Create 1 savedPropertyID array to store property ID of savedProperty, then use this ID to retrieve the property data from propertyLibrary.
 
 
 Initial state:
