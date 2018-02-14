@@ -13,14 +13,17 @@ Requirements:
 ===============================================================================     
 
 Data structure strategy:
-- Create 1 propertyLibrary object to store all properties
-- Add 'isSaved' property to mark if the properties already saved by user
+- Create 1 propertyLibrary object to store all properties (both results and saved properties)
+- Create 1 savedPropertyID object to store property ID of savedProperty, then use this ID to retrieve the property data from propertyLibrary.
+
 
 Initial state:
 - The Saved Property Set already has 1 existing ID = 4
-- The Result column only shows Property ID 1, 2, & 3 instead of all properties under Property Map
+- The Result column only shows Property ID 1, 2, & 3 instead of all properties under propertyLibrary object
 
-Motivation behind this strategy: to minimise property object duplications that require updates on multiple places when there are data changes. 
+Motivation behind this strategy: 
+- to minimise property object duplications that require updates on multiple places when there are data changes.
+- to represent real situation more closely, where each user might have their own 'savedProperty' object.
 
 ================================================================================
 
