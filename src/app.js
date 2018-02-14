@@ -42,6 +42,11 @@
         savedProperty.splice(index, 1);
     };
     
+    // Add property ID into savedPropertyID array
+    lib.addSavedProperty = function addSavedProperty(savedProperty = lib.savedPropertyID, propertyID) {
+        savedProperty.push(propertyID);
+    }
+    
 /* --- Internal Helper Methods --- */
     // To render Handlebars template given HTML target element and the property data
     function renderTemplate(targetElementId, data) {
