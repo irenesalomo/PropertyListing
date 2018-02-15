@@ -1,1 +1,31 @@
 @color-red-theme: #e4002b;
+@color-base-font: #333f48;
+
+@baseFontSize: 14px;
+
+@gutterWidth: 15px;
+
+/* Layout Break Points */
+/** Extra small screen / phone / Under 480px */
+@screen-xs: 480px;
+//@screen-xs-min: @screen-xs;
+@screen-xs-max: @screen-xs;
+
+/** Small screen / tablet  / From 480px to 767px  */
+@screen-sm: 768px;
+@screen-sm-min: @screen-xs;
+
+/** Medium screen / desktop / From 768px to 991px */
+@screen-md: 991px;
+@screen-md-min: @screen-sm;
+@screen-desktop: @screen-md-min;
+
+/** Large screen / desktop / From 992px to 1199px */
+@screen-lg-min: 992px;
+@screen-xl: 1200px;
+
+/** So media queries don't overlap when required, provide a maximum */
+@screen-xs-max: (@screen-xs - 1);
+@screen-sm-max: (@screen-sm - 1);
+@screen-md-max: (@screen-lg-min - 1);
+@screen-lg-max: (@screen-xl - 1);

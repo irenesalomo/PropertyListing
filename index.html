@@ -13,18 +13,23 @@
     
     <body>
         
-        <header>
+        <header class="header">
             <div class="container">
-                <h1>Property Results</h1>
+                <a title="homepage logo" href="https://www.realestate.com.au" target = "_blank" class="logo">
+                    <img src="https://s1.rui.au.reastatic.net/rui-static/img/rea-logo-v4.png" alt="realestate.com.au Australia lives here" class="logo__image">
+                </a>
+                <h1 class="header__text">Property Listing</h1>
             </div>
         </header>
         
-        <div class="flexbox-container">
-            <div class="column" id="column__results">
+        <div class="container">
+            <div class="column column-xs-12 column-md-6 column-lg-6" id="column__results">
                 <h3 class="column__header">Results</h3>
+                <div class="column__property"></div>
             </div>    
-            <div class="column" id="column__saved">
+            <div class="column column-xs-12 column-md-6 column-lg-6" id="column__saved">
                 <h3 class="column__header">Saved Properties</h3>
+                <div class="column__property"></div>
             </div>
         </div>
         
@@ -45,9 +50,7 @@
             {{/properties}}
         </script>
         
-        <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>-->
         <script data-main="src/main" src="src/require.js"></script> 
     </body>
 </html>

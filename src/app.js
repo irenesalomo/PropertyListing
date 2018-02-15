@@ -36,7 +36,7 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
                 handlebars.updateSavedPropertyButton();
 
             });
-        }
+        },
         // To retrieve saved property information based on the property ID on savedProperty array, to be rendered on template
         // TODO: Need to handle edge case when result and saved properties has same element at initial state. Although this is currently not the case with the given JSON. 
         getSavedPropertyData : function() {
