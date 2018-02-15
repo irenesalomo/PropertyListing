@@ -11,6 +11,7 @@ If you already save a property, then accidentally try to save it again, it won't
 
 I'm using Vanilla JS + jQuery to implement this Property Listing features.
 RequireJS is used as module loader, while Handlebars is used for Javascript Templating. 
+Gulp is used to minify CSS
 
 # To run this project:
 
@@ -23,4 +24,5 @@ RequireJS is used as module loader, while Handlebars is used for Javascript Temp
 1. Make sure npm is installed on your machine
 2. Run this on the project folder:
 npm install gulp gulp-rename gulp-less gulp-clean-css gulp-concat gulp-uglify-es gulp-replace --save-dev
+3. Run gulp-less to minify CSS or gulp-watch to watch for any css file changes
 3. Enjoy
