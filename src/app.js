@@ -1,4 +1,4 @@
-define(["utils", "handlebars"], function (utils, handlebars) { 
+define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) { 
     var propertyLibrary = {
         properties : []
     };
