@@ -1,4 +1,4 @@
-define(["utils"], function (utils) { 
+define(["utils", "handlebars"], function (utils, handlebars) { 
     var propertyLibrary = {
         properties : []
     };
@@ -6,6 +6,10 @@ define(["utils"], function (utils) {
     var savedPropertyID = [];
     
     var apiMethods = {
+        // TODO: Replace this function with dynamic one that looks like following: This function accepts element, event & function callback
+        // bindEvents: function(el, evt, context, fn) {
+        // el.on(evt, context, fn);
+        // },
         bindEvents : function() {
             // Event triggered when user click 'Save' button on result property column
             $('#column__results').on('click', '.propertyCard__overlay__button', function(){
@@ -14,8 +18,8 @@ define(["utils"], function (utils) {
 
                 if (apiMethods.addSavedProperty(savedPropertyID, clickedID)) {
                     utils.showConfirmation($(this), "Property saved.");
-                    utils.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
-                    utils.updateSavedPropertyButton();
+                    handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
+                    handlebars.updateSavedPropertyButton();
 
                 }
                 else {
@@ -28,8 +32,8 @@ define(["utils"], function (utils) {
                 var clickedID = $(this).parents('.propertyCard').data('id').toString();
 
                 apiMethods.removeSavedProperty(savedPropertyID, clickedID);
-                utils.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
-                utils.updateSavedPropertyButton();
+                handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
+                handlebars.updateSavedPropertyButton();
 
             });
         },
@@ -73,9 +77,9 @@ define(["utils"], function (utils) {
                 });
                 
                 
-                utils.renderTemplate('column__results', 'column__property', resultProperties);
-                utils.renderTemplate('column__saved', 'column__property', savedProperties);
-                utils.updateSavedPropertyButton();
+                handlebars.renderTemplate('column__results', 'column__property', resultProperties);
+                handlebars.renderTemplate('column__saved', 'column__property', savedProperties);
+                handlebars.updateSavedPropertyButton();
                 apiMethods.bindEvents();
                 propertyLibrary.properties = resultProperties.concat(savedProperties);
             }
