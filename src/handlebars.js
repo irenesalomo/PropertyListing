@@ -1,4 +1,5 @@
 define(function(handlebars) {
+    var Handlebars = require('handlebarLib');
     return {
         compileTemplate : function() {
             return Handlebars.compile($('#propertyCard-template').html());
