@@ -16,7 +16,7 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
                 // Retrieve propertyID from propertyCard's data attribute
                 var clickedID = $(this).parents('.propertyCard').data('id').toString();
 
-                if (apiMethods.addSavedProperty(savedPropertyID, clickedID)) {
+                if (utils.addSavedProperty(savedPropertyID, clickedID)) {
                     utils.showConfirmation($(this), "Property saved.");
                     handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
                     handlebars.updateSavedPropertyButton();
@@ -31,28 +31,12 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
             $('#column__saved').on('click', '.propertyCard__overlay__button', function() {
                 var clickedID = $(this).parents('.propertyCard').data('id').toString();
 
-                apiMethods.removeSavedProperty(savedPropertyID, clickedID);
+                utils.removeSavedProperty(savedPropertyID, clickedID);
                 handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
                 handlebars.updateSavedPropertyButton();
 
             });
-        },
-        // Remove property ID from savedPropertyID array
-        removeSavedProperty : function (savedProperty, propertyID) {
-            const index = savedProperty.indexOf(propertyID);
-            savedProperty.splice(index, 1);
-        },
-        // Add property ID into savedPropertyID array
-        addSavedProperty : function (savedProperty, propertyID) {
-            // Check if this property has already exists on savedPropertyID array, if not then save the ID 
-            if (savedProperty.indexOf(propertyID) === -1) {
-                savedProperty.push(propertyID);
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
+        }
         // To retrieve saved property information based on the property ID on savedProperty array, to be rendered on template
         // TODO: Need to handle edge case when result and saved properties has same element at initial state. Although this is currently not the case with the given JSON. 
         getSavedPropertyData : function() {
