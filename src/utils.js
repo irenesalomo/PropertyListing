@@ -8,6 +8,6 @@ define(function(utils) {
                             .fadeIn( "fast", function() {
                                 $('.propertyCard__overlay__button__notification').delay(2000).fadeOut("slow"); 
                             });
-        },
+        }
     }
 });
