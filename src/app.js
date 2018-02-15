@@ -20,7 +20,7 @@
                 
                 renderTemplate('column__results', resultProperties);
                 renderTemplate('column__saved',savedProperties);
-
+                bindEvents();
                 
                 lib.propertyLibrary = {
                     properties : resultProperties.concat(savedProperties)
@@ -43,8 +43,16 @@
     };
     
     // Add property ID into savedPropertyID array
-    lib.addSavedProperty = function addSavedProperty(savedProperty = lib.savedPropertyID, propertyID) {
-        savedProperty.push(propertyID);
+    lib.addSavedProperty = function addSavedProperty(savedProperty, propertyID) {
+
+        // Check if this property has already exists on savedPropertyID array, if not then save the ID 
+        if (savedProperty.indexOf(propertyID) === -1) {
+            savedProperty.push(propertyID);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
 /* --- Internal Helper Methods --- */
@@ -53,7 +61,42 @@
         var output = {
             properties : data
         } 
-        $('#'+targetElementId).append(lib.propertyCardTemplate(output));
+        $('#'+targetElementId).html(lib.propertyCardTemplate(output));
+    }
+    
+    function bindEvents(){
+        // Event triggered when user click 'Save' button on result property column
+        $('#column__results').on('click', '.propertyCard__overlay__button', function(){
+            // Retrieve propertyID from propertyCard's data attribute
+            var clickedID = $(this).parents('.propertyCard').data('id').toString();
+            
+            if (lib.addSavedProperty(lib.savedPropertyID, clickedID)) {
+                showConfirmation($(this), "Property saved.");
+                renderTemplate('column__saved', getSavedPropertyData());
+            }
+            else {
+                showConfirmation($(this), "This property already exists on your saved list.");
+            }
+        });
+    }
+    
+    // To display notification to users that the property has been saved to their list
+    // TODO: Maybe implement this with asynch?
+    function showConfirmation(targetSibling, confirmationText){
+        $(targetSibling).siblings('.propertyCard__overlay__button__notification')
+                        .text(confirmationText)
+                        .fadeIn( "fast", function() {
+                            $('.propertyCard__overlay__button__notification').delay(2000).fadeOut("slow"); 
+                        });
+    }
+    
+    // To retrieve saved property information based on the property ID on savedProperty array, to be rendered on template
+    // TODO: Need to handle edge case when result and saved properties has same element at initial state. Although this is currently not the case with the given JSON. 
+    function getSavedPropertyData(){
+        var savedPropertiesData = lib.propertyLibrary.properties.filter(function(property) {
+            return lib.savedPropertyID.indexOf(property.id) !== -1;
+        });
+        return savedPropertiesData;
     }
     
     root['propertyListing'] = lib;
