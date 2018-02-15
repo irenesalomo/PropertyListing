@@ -20,6 +20,7 @@
                 
                 renderTemplate('column__results', resultProperties);
                 renderTemplate('column__saved',savedProperties);
+                updateSavedPropertyButton();
                 bindEvents();
                 
                 lib.propertyLibrary = {
@@ -27,7 +28,7 @@
                 };
                 
                 lib.savedPropertyID = savedPropertiesID;
-                console.log(lib);
+//                console.log(lib);
             }
         }
         
@@ -73,10 +74,22 @@
             if (lib.addSavedProperty(lib.savedPropertyID, clickedID)) {
                 showConfirmation($(this), "Property saved.");
                 renderTemplate('column__saved', getSavedPropertyData());
+                updateSavedPropertyButton();
+
             }
             else {
                 showConfirmation($(this), "This property already exists on your saved list.");
             }
+        });
+        
+        // Event triggered when user click 'Remove' button on saved property column
+        $('#column__saved').on('click', '.propertyCard__overlay__button', function() {
+            var clickedID = $(this).parents('.propertyCard').data('id').toString();
+            
+            lib.removeSavedProperty(lib.savedPropertyID, clickedID);
+            renderTemplate('column__saved', getSavedPropertyData());
+            updateSavedPropertyButton();
+
         });
     }
     
@@ -98,6 +111,14 @@
         });
         return savedPropertiesData;
     }
+    
+    // Quick fix to change button value to be Remove
+    // TODO: replace this function with better implementation on Handlebars template
+    function updateSavedPropertyButton(){
+        $('.propertyCard__overlay__button', $('#column__saved')).each(function () {
+            $(this).prop('value', 'Remove'); 
+        });
+    };
     
     root['propertyListing'] = lib;
     
