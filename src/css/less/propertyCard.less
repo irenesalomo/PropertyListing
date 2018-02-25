@@ -1,6 +1,9 @@
 .propertyCard{
     cursor: pointer;
     position: relative;
+    margin-top: @gutterWidth;
+    margin-bottom: @gutterWidth * 2;
+
     
     &:hover{
         .propertyCard__overlay{
@@ -21,7 +24,7 @@
 }
 
 .propertyCard__overlay__button{
-    margin: 35% auto;
+    margin: 35% auto 2%;
     width: 100px;
     display: block;
     height: 30px;
@@ -31,6 +34,30 @@
     font-weight: 700;
     border: 1px solid white;
     border-radius: 8px;
+}
+
+.propertyCard__overlay__button__notification{
+    display: none;
+    color: white;
+    background-color: @color-red-theme;
+    font-weight: 700;
+    padding: 10px;
+    width: auto;
+    position: relative;
+    
+}
+
+.column__header{
+    font-size: 22px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.propertyCard__price{
+    padding-left: 2px;
+    padding-top: 5px;
+
+    font-weight: 700;
 }
 
     
