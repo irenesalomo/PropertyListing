@@ -44,3 +44,6 @@ Internal Helper Method:
 [x] Implement unit testing
 [ ] Consider to make the saved property list to be persistent
 [ ] Implement handlebar pre-compilation to improve performance
+[ ] Implement sort feature
+[ ] Implement pagging
+[ ] Create eventListener module
