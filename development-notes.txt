@@ -30,5 +30,9 @@ Motivation behind this strategy:
 TODO:
 [x] Implement JS Modular pattern
 [x] Implement unit testing
+[Tuesday, 27th Feb] Review Require JS again
+[Thursday, 1st March] Create eventListener module
+[Saturday, 3rd March] Implement sort feature
+[Monday, 5th March] Implement pagging
 [ ] Consider to make the saved property list to be persistent
 [ ] Implement handlebar pre-compilation to improve performance
