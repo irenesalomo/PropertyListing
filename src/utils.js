@@ -1,6 +1,9 @@
 /* --- Internal Helper Methods --- */
 // This util uses object as factory
 define({
+    eventListener: function(el, evt, context, callback){
+        el.on(evt, context, callback);
+    },
     showConfirmation: function(targetSibling, confirmationClass, confirmationText) {
         $(targetSibling).siblings(confirmationClass)
                         .text(confirmationText)

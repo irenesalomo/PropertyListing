@@ -7,40 +7,12 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
     var savedPropertyID = [];
     
     var apiMethods = {
-        // TODO: Replace this function with dynamic one that looks like following: This function accepts element, event & function callback
-        // bindEvents: function(el, evt, context, fn) {
-        // el.on(evt, context, fn);
-        // },
-        
         bindEvents : function() {
             // Event triggered when user click 'Save' button on result property column
-            // utils.eventListener($('#column__results'), 'click','.propertyCard__overlay__button', function(){
-                
-            // });
-            $('#column__results').on('click', '.propertyCard__overlay__button', function(){
-                // Retrieve propertyID from propertyCard's data attribute
-                var clickedID = $(this).parents('.propertyCard').data('id').toString();
-
-                if (utils.addSavedProperty(savedPropertyID, clickedID)) {
-                    utils.showConfirmation($(this), '.propertyCard__overlay__button__notification', "Property saved.");
-                    handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
-                    handlebars.updateSavedPropertyButton();
-
-                }
-                else {
-                    utils.showConfirmation($(this), '.propertyCard__overlay__button__notification', "This property already exists on your saved list.");
-                }
-            });
-
+            utils.eventListener($('#column__results'), 'click','.propertyCard__overlay__button', this.savePropertyEvent);
+            
             // Event triggered when user click 'Remove' button on saved property column
-            $('#column__saved').on('click', '.propertyCard__overlay__button', function() {
-                var clickedID = $(this).parents('.propertyCard').data('id').toString();
-
-                utils.removeSavedProperty(savedPropertyID, clickedID);
-                handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
-                handlebars.updateSavedPropertyButton();
-
-            });
+            utils.eventListener($('#column__saved'), 'click', '.propertyCard__overlay__button', this.removePropertyEvent);
         },
         // To retrieve saved property information based on the property ID on savedProperty array, to be rendered on template
         // TODO: Need to handle edge case when result and saved properties has same element at initial state. Although this is currently not the case with the given JSON. 
@@ -49,7 +21,30 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
                 return savedPropertyID.indexOf(property.id) !== -1;
             });
             return savedPropertiesData;
-        }
+        }, 
+        // Callback function executed when user click save property button
+        savePropertyEvent : function(){                
+            // Retrieve propertyID from propertyCard's data attribute
+            var clickedID = $(this).parents('.propertyCard').data('id').toString();
+
+            if (utils.addSavedProperty(savedPropertyID, clickedID)) {
+                utils.showConfirmation($(this),'.propertyCard__overlay__button__notification', "Property saved.");
+                handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
+                handlebars.updateSavedPropertyButton();
+        
+            }
+            else {
+                utils.showConfirmation($(this), '.propertyCard__overlay__button__notification', "This property already exists on your saved list.");
+            }
+        },
+        // Callback function executed when user click remove property button
+        removePropertyEvent : function(){
+            var clickedID = $(this).parents('.propertyCard').data('id').toString();
+
+            utils.removeSavedProperty(savedPropertyID, clickedID);
+            handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
+            handlebars.updateSavedPropertyButton();
+        },
     };
     
     
