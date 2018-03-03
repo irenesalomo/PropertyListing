@@ -1,4 +1,5 @@
 define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) { 
+    "use strict";
     var propertyLibrary = {
         properties : []
     };
@@ -10,8 +11,12 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
         // bindEvents: function(el, evt, context, fn) {
         // el.on(evt, context, fn);
         // },
+        
         bindEvents : function() {
             // Event triggered when user click 'Save' button on result property column
+            // utils.eventListener($('#column__results'), 'click','.propertyCard__overlay__button', function(){
+                
+            // });
             $('#column__results').on('click', '.propertyCard__overlay__button', function(){
                 // Retrieve propertyID from propertyCard's data attribute
                 var clickedID = $(this).parents('.propertyCard').data('id').toString();

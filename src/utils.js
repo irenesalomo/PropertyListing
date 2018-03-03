@@ -24,6 +24,9 @@ define(function(utils) {
             else {
                 return false;
             }
-        }
+        },
+        // eventListener: function(el, evt, context, callback){
+        //     el.on(evt, context, fn);
+        // },
     }
 });
