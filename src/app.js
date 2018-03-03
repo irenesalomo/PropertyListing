@@ -17,13 +17,13 @@ define(["jquery", "utils", "handlebars"], function ($, utils, handlebars) {
                 var clickedID = $(this).parents('.propertyCard').data('id').toString();
 
                 if (utils.addSavedProperty(savedPropertyID, clickedID)) {
-                    utils.showConfirmation($(this), "Property saved.");
+                    utils.showConfirmation($(this), '.propertyCard__overlay__button__notification', "Property saved.");
                     handlebars.renderTemplate('column__saved', 'column__property', apiMethods.getSavedPropertyData());
                     handlebars.updateSavedPropertyButton();
 
                 }
                 else {
-                    utils.showConfirmation($(this), "This property already exists on your saved list.");
+                    utils.showConfirmation($(this), '.propertyCard__overlay__button__notification', "This property already exists on your saved list.");
                 }
             });
 

@@ -2,11 +2,11 @@
 define(function(utils) {
     return {
         //Show confirmation text after user clicks save button
-        showConfirmation: function(targetSibling, confirmationText) {
-            $(targetSibling).siblings('.propertyCard__overlay__button__notification')
+        showConfirmation: function(targetSibling, confirmationClass, confirmationText) {
+            $(targetSibling).siblings(confirmationClass)
                             .text(confirmationText)
                             .fadeIn( "fast", function() {
-                                $('.propertyCard__overlay__button__notification').delay(2000).fadeOut("slow"); 
+                                $(confirmationClass).delay(2000).fadeOut("slow"); 
                             });
         }, 
         // Remove property ID from savedPropertyID array
